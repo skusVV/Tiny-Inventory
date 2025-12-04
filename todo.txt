@@ -1,0 +1,19 @@
+
+- add database - repository, entity (store, product, categories)
+- CRUD store
+- CRUD products
+- products filter
+- SOme aggregations or compounded data.
+- store/products pagination
+- Migration to seed data?
+
+
+
+// Polishing
+- remove all e2e related stuff
+
+
+UI-
+
+- create/delete/update store
+- ad product to store, update delete product
