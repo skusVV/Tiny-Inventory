@@ -1,13 +1,11 @@
 
-- add database - repository, entity (store, product, categories)
-- CRUD products
 - products filter
 - SOme aggregations or compounded data.
 - store/products pagination
 - sorting for products
 - unit tests
 - Migration to seed data?
-- Product may belong to different categories?
+- Implement all products page
 
 
 // Polishing

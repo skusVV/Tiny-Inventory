@@ -3,6 +3,8 @@ export const ROUTES = {
   CREATE_STORE: "/store/create",
   STORE: "/store/:id",
   CREATE_PRODUCT: "/store/:storeId/product/create",
+  CREATE_PRODUCT_GLOBAL: "/product/create",
+  ALL_PRODUCTS: "/products",
   PRODUCT: "/product/:id",
 } as const;
 

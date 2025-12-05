@@ -12,6 +12,10 @@ export class ProductService {
     return this.productRepository.findAll();
   }
 
+  async findByStoreId(storeId: string): Promise<Product[]> {
+    return this.productRepository.findByStoreId(storeId);
+  }
+
   async findById(id: string): Promise<Product> {
     const product = await this.productRepository.findById(id);
 

@@ -17,6 +17,13 @@ export class ProductRepository {
     return this.repository.find({ relations: ['categories'] });
   }
 
+  async findByStoreId(storeId: string): Promise<Product[]> {
+    return this.repository.find({
+      where: { storeId },
+      relations: ['categories'],
+    });
+  }
+
   async findById(id: string): Promise<Product | null> {
     return this.repository.findOne({ where: { id }, relations: ['categories'] });
   }

@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../hooks/useStore";
+import { useProducts } from "../hooks/useProducts";
 import { StoresApi } from "../api/stores";
+import { ProductList } from "../components";
 import { ROUTES, buildCreateProductRoute } from "../shared";
 
 export const Store = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data: store, loading, error } = useStore(id);
+  const { data: products, loading: productsLoading } = useProducts(id);
   const [deleting, setDeleting] = useState(false);
 
   const handleDelete = async () => {
@@ -94,7 +97,12 @@ export const Store = () => {
             Create Product
           </button>
         </div>
-        <p className="text-slate-400">No products yet.</p>
+
+        {productsLoading ? (
+          <p className="text-slate-400">Loading products...</p>
+        ) : (
+          <ProductList products={products} />
+        )}
       </div>
     </div>
   );
