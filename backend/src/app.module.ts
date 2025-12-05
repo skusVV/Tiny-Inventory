@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { CategoryModule } from './modules/category/category.module';
+import { ProductModule } from './modules/product/product.module';
 import { StoreModule } from './modules/store/store.module';
 
 @Module({
@@ -9,6 +11,8 @@ import { StoreModule } from './modules/store/store.module';
       isGlobal: true,
     }),
     DatabaseModule,
+    CategoryModule,
+    ProductModule,
     StoreModule,
   ],
 })

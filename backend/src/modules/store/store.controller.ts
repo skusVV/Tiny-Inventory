@@ -7,10 +7,12 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { StoreService } from './store.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import { FindStoresQueryDto } from './dto/find-stores-query.dto';
 import { StoreBuilder } from './store.builder';
 import { StoreResponseDto } from './dto/store-response.dto';
 
@@ -19,8 +21,8 @@ export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
   @Get()
-  async findAll(): Promise<StoreResponseDto[]> {
-    const stores = await this.storeService.findAll();
+  async findAll(@Query() query: FindStoresQueryDto): Promise<StoreResponseDto[]> {
+    const stores = await this.storeService.findAll(query.sortBy, query.sortOrder);
 
     return StoreBuilder.toResponseList(stores);
   }

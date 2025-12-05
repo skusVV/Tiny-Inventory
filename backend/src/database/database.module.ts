@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Category } from './entities/category.entity';
+import { Product } from './entities/product.entity';
 import { Store } from './entities/store.entity';
+import { CategoryRepository } from './repositories/category.repository';
+import { ProductRepository } from './repositories/product.repository';
 import { StoreRepository } from './repositories/store.repository';
 
 @Module({
@@ -19,10 +23,10 @@ import { StoreRepository } from './repositories/store.repository';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([Store]),
+    TypeOrmModule.forFeature([Store, Category, Product]),
   ],
-  providers: [StoreRepository],
-  exports: [StoreRepository],
+  providers: [StoreRepository, CategoryRepository, ProductRepository],
+  exports: [StoreRepository, CategoryRepository, ProductRepository],
 })
 export class DatabaseModule {}
 

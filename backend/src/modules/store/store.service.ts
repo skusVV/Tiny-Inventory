@@ -8,8 +8,8 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 export class StoreService {
   constructor(private readonly storeRepository: StoreRepository) {}
 
-  async findAll(): Promise<Store[]> {
-    return this.storeRepository.findAll();
+  async findAll(sortBy?: string, sortOrder?: 'ASC' | 'DESC'): Promise<Store[]> {
+    return this.storeRepository.findAll(sortBy, sortOrder);
   }
 
   async findById(id: string): Promise<Store> {

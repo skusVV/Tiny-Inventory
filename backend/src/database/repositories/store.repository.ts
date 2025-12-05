@@ -10,8 +10,10 @@ export class StoreRepository {
     private readonly repository: Repository<Store>,
   ) {}
 
-  async findAll(): Promise<Store[]> {
-    return this.repository.find();
+  async findAll(sortBy?: string, sortOrder?: 'ASC' | 'DESC'): Promise<Store[]> {
+    return this.repository.find({
+      order: sortBy ? { [sortBy]: sortOrder || 'ASC' } : undefined,
+    });
   }
 
   async findById(id: string): Promise<Store | null> {

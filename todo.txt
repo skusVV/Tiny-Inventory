@@ -1,19 +1,36 @@
 
 - add database - repository, entity (store, product, categories)
-- CRUD store
 - CRUD products
 - products filter
 - SOme aggregations or compounded data.
 - store/products pagination
+- sorting for products
+- unit tests
 - Migration to seed data?
-
+- Product may belong to different categories?
 
 
 // Polishing
 - remove all e2e related stuff
 
-
 UI-
 
 - create/delete/update store
 - ad product to store, update delete product
+- Handle no image case
+
+
+####README####
+
+
+// Ideas to improve
+- Product labels - like "recycled", 'sugar free'
+- More fields for Store?
+
+
+4. Technically categories could be applied both to store and products and 
+it reduce complex query.
+But as you asked to have non-trivial query, I will have only product-category
+ relations.
+
+
