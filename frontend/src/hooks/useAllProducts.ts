@@ -1,22 +1,36 @@
-import { useEffect, useState } from "react";
-import { ProductsApi } from "../api/products";
+import { useCallback, useEffect, useState } from "react";
+import { ProductsApi, type ProductSortBy, type SortOrder } from "../api/products";
 import type { Product } from "../api/types";
 
-export function useAllProducts() {
-  const [data, setData] = useState<Product[]>([]);
+const PAGE_SIZE = 9;
+
+interface UseAllProductsOptions {
+  sortBy?: ProductSortBy;
+  sortOrder?: SortOrder;
+}
+
+export function useAllProducts(options: UseAllProductsOptions = {}) {
+  const { sortBy, sortOrder } = options;
+  const [products, setProducts] = useState<Product[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const hasMore = products.length < totalCount;
 
   useEffect(() => {
     let cancel = false;
 
-    async function load() {
+    async function loadInitial() {
       try {
         setLoading(true);
         setError(null);
-        const products = await ProductsApi.getAll();
+        const response = await ProductsApi.getAll({ sortBy, sortOrder, skip: 0, take: PAGE_SIZE });
 
-        if (!cancel) setData(products);
+        if (!cancel) {
+          setProducts(response.items);
+          setTotalCount(response.totalCount);
+        }
       } catch (e) {
         if (!cancel) setError(e instanceof Error ? e.message : "Unknown error");
       } finally {
@@ -24,11 +38,31 @@ export function useAllProducts() {
       }
     }
 
-    load();
+    loadInitial();
 
     return () => { cancel = true; };
-  }, []);
+  }, [sortBy, sortOrder]);
 
-  return { data, loading, error };
+  const loadMore = useCallback(async () => {
+    if (loadingMore || !hasMore) return;
+
+    try {
+      setLoadingMore(true);
+      const response = await ProductsApi.getAll({
+        sortBy,
+        sortOrder,
+        skip: products.length,
+        take: PAGE_SIZE,
+      });
+
+      setProducts((prev) => [...prev, ...response.items]);
+      setTotalCount(response.totalCount);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Unknown error");
+    } finally {
+      setLoadingMore(false);
+    }
+  }, [sortBy, sortOrder, products.length, loadingMore, hasMore]);
+
+  return { products, totalCount, loading, loadingMore, error, hasMore, loadMore };
 }
-

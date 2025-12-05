@@ -1,8 +1,9 @@
 import { IsEnum, IsInt, IsOptional, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export enum StoreSortBy {
+export enum ProductSortBy {
   NAME = 'name',
+  PRICE = 'price',
   CREATED_AT = 'createdAt',
 }
 
@@ -11,10 +12,10 @@ export enum SortOrder {
   DESC = 'DESC',
 }
 
-export class FindStoresQueryDto {
+export class FindProductsQueryDto {
   @IsOptional()
-  @IsEnum(StoreSortBy)
-  sortBy?: StoreSortBy;
+  @IsEnum(ProductSortBy)
+  sortBy?: ProductSortBy;
 
   @IsOptional()
   @IsEnum(SortOrder)
@@ -30,6 +31,6 @@ export class FindStoresQueryDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  take?: number = 6;
+  take?: number = 9;
 }
 

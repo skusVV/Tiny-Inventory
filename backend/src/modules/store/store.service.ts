@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { StoreRepository } from '../../database/repositories/store.repository';
+import { StoreRepository, FindAllOptions } from '../../database/repositories/store.repository';
 import { Store } from '../../database/entities/store.entity';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
@@ -8,8 +8,8 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 export class StoreService {
   constructor(private readonly storeRepository: StoreRepository) {}
 
-  async findAll(sortBy?: string, sortOrder?: 'ASC' | 'DESC'): Promise<Store[]> {
-    return this.storeRepository.findAll(sortBy, sortOrder);
+  async findAll(options: FindAllOptions = {}): Promise<[Store[], number]> {
+    return this.storeRepository.findAll(options);
   }
 
   async findById(id: string): Promise<Store> {
@@ -39,6 +39,10 @@ export class StoreService {
   async delete(id: string): Promise<void> {
     await this.findById(id);
     await this.storeRepository.delete(id);
+  }
+
+  async findAllOptions(): Promise<{ id: string; name: string }[]> {
+    return this.storeRepository.findAllOptions();
   }
 }
 

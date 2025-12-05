@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ProductRepository } from '../../database/repositories/product.repository';
+import { ProductRepository, ProductFindAllOptions } from '../../database/repositories/product.repository';
 import { Product } from '../../database/entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -8,8 +8,8 @@ import { UpdateProductDto } from './dto/update-product.dto';
 export class ProductService {
   constructor(private readonly productRepository: ProductRepository) {}
 
-  async findAll(): Promise<Product[]> {
-    return this.productRepository.findAll();
+  async findAll(options: ProductFindAllOptions = {}): Promise<[Product[], number]> {
+    return this.productRepository.findAll(options);
   }
 
   async findByStoreId(storeId: string): Promise<Product[]> {

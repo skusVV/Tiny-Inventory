@@ -1,5 +1,5 @@
 import { api } from "./client";
-import type { Store } from "./types";
+import type { Store, StoreOption, PaginatedResponse } from "./types";
 
 export interface StorePayload {
     name: string;
@@ -11,17 +11,27 @@ export interface StorePayload {
 export type StoreSortBy = 'name' | 'createdAt';
 export type SortOrder = 'ASC' | 'DESC';
 
+export interface ListStoresParams {
+    sortBy?: StoreSortBy;
+    sortOrder?: SortOrder;
+    skip?: number;
+    take?: number;
+}
+
 export const StoresApi = {
-  list: (sortBy?: StoreSortBy, sortOrder?: SortOrder) => {
-    const params = new URLSearchParams();
+  list: (params: ListStoresParams = {}) => {
+    const searchParams = new URLSearchParams();
 
-    if (sortBy) params.set('sortBy', sortBy);
-    if (sortOrder) params.set('sortOrder', sortOrder);
+    if (params.sortBy) searchParams.set('sortBy', params.sortBy);
+    if (params.sortOrder) searchParams.set('sortOrder', params.sortOrder);
+    if (params.skip !== undefined) searchParams.set('skip', params.skip.toString());
+    if (params.take !== undefined) searchParams.set('take', params.take.toString());
 
-    const query = params.toString();
+    const query = searchParams.toString();
 
-    return api.get<Store[]>(`/stores${query ? `?${query}` : ''}`);
+    return api.get<PaginatedResponse<Store>>(`/stores${query ? `?${query}` : ''}`);
   },
+  options: () => api.get<StoreOption[]>('/stores/options'),
   get: (id: string) => api.get<Store>(`/stores/${id}`),
   create: (payload: StorePayload) => api.post<Store>("/stores", payload),
   update: (id: string, payload: StorePayload) => api.patch<Store>(`/stores/${id}`, payload),

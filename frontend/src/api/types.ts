@@ -6,6 +6,11 @@ export interface Store {
     location: string | null;
 }
 
+export interface StoreOption {
+    id: string;
+    name: string;
+}
+
 export interface Category {
     id: string;
     name: string;
@@ -20,4 +25,9 @@ export interface Product {
     imageUrl: string | null;
     storeId: string;
     categories: Category[];
+}
+
+export interface PaginatedResponse<T> {
+    items: T[];
+    totalCount: number;
 }

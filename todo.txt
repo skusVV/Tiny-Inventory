@@ -5,7 +5,8 @@
 - sorting for products
 - unit tests
 - Migration to seed data?
-- Implement all products page
+
+- to which store this product belong at least overview.
 
 
 // Polishing

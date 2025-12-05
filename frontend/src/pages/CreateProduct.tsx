@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProductsApi } from "../api/products";
 import { useCategories } from "../hooks/useCategories";
-import { useStores } from "../hooks/useStores";
+import { useStoreOptions } from "../hooks/useStoreOptions";
 import { buildStoreRoute } from "../shared";
 
 export const CreateProduct = () => {
   const { storeId } = useParams<{ storeId: string }>();
   const navigate = useNavigate();
   const { data: categories, loading: categoriesLoading } = useCategories();
-  const { data: stores, loading: storesLoading } = useStores({});
+  const { data: stores, loading: storesLoading } = useStoreOptions();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");

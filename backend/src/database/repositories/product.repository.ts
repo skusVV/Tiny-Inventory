@@ -4,6 +4,13 @@ import { In, Repository } from 'typeorm';
 import { Product } from '../entities/product.entity';
 import { Category } from '../entities/category.entity';
 
+export interface ProductFindAllOptions {
+  sortBy?: string;
+  sortOrder?: 'ASC' | 'DESC';
+  skip?: number;
+  take?: number;
+}
+
 @Injectable()
 export class ProductRepository {
   constructor(
@@ -13,8 +20,15 @@ export class ProductRepository {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
-  async findAll(): Promise<Product[]> {
-    return this.repository.find({ relations: ['categories'] });
+  async findAll(options: ProductFindAllOptions = {}): Promise<[Product[], number]> {
+    const { sortBy, sortOrder, skip = 0, take = 9 } = options;
+
+    return this.repository.findAndCount({
+      relations: ['categories'],
+      order: sortBy ? { [sortBy]: sortOrder || 'ASC' } : undefined,
+      skip,
+      take,
+    });
   }
 
   async findByStoreId(storeId: string): Promise<Product[]> {

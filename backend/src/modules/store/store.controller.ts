@@ -16,6 +16,8 @@ import { UpdateStoreDto } from './dto/update-store.dto';
 import { FindStoresQueryDto } from './dto/find-stores-query.dto';
 import { StoreBuilder } from './store.builder';
 import { StoreResponseDto } from './dto/store-response.dto';
+import { PaginatedStoresResponseDto } from './dto/paginated-stores-response.dto';
+import { StoreOptionDto } from './dto/store-option.dto';
 import { Product } from '../../database/entities/product.entity';
 
 @Controller('stores')
@@ -26,10 +28,20 @@ export class StoreController {
   ) {}
 
   @Get()
-  async findAll(@Query() query: FindStoresQueryDto): Promise<StoreResponseDto[]> {
-    const stores = await this.storeService.findAll(query.sortBy, query.sortOrder);
+  async findAll(@Query() query: FindStoresQueryDto): Promise<PaginatedStoresResponseDto> {
+    const [stores, totalCount] = await this.storeService.findAll({
+      sortBy: query.sortBy,
+      sortOrder: query.sortOrder,
+      skip: query.skip,
+      take: query.take,
+    });
 
-    return StoreBuilder.toResponseList(stores);
+    return StoreBuilder.toPaginatedResponse(stores, totalCount);
+  }
+
+  @Get('options')
+  async findOptions(): Promise<StoreOptionDto[]> {
+    return this.storeService.findAllOptions();
   }
 
   @Get(':id')
