@@ -41,9 +41,9 @@ cd frontend && npm run dev
 
 **NestJS** — Well-structured, OOP-oriented framework with built-in DI, validation, and great TypeScript support. Trade-off: heavier than Express for a small app.
 
-**PostgreSQL** — Chosen for future extensibility (locations, labels, expiration dates, sales). Current state could work with NoSQL, but relational model scales better with growing complexity.
+**PostgreSQL** - Chosen for future extensibility (locations, labels, expiration dates, sales). Current state could work with NoSQL, but relational model scales better with growing complexity.
 
-**TypeORM** — Integrates seamlessly with NestJS. Trade-off: some query limitations vs raw SQL.
+**TypeORM** - Integrates seamlessly with NestJS. Trade-off: some query limitations vs raw SQL.
 
 
 ## Testing Approach
@@ -54,6 +54,6 @@ cd frontend && npm run dev
 
 ## If I Had More Time
 
-- **Add product search & filtering** — search by name, filter by category, price range, stock quantity
-- **Add authentication & authorization** — protect endpoints, support multiple users per store
-- **Implement comprehensive test suite** — unit tests for services, E2E tests for API, frontend component tests
+- **Add product search & filtering** - search by name, filter by category, price range, stock quantity
+- **Add authentication & authorization** - protect endpoints, support multiple users per store
+- **Audit logs** - it's must have in enterpirse systems.
