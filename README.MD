@@ -19,10 +19,17 @@ For local development:
 cd backend && npm run up:db
 
 # Run backend (in another terminal)
-cd backend && npm run dev
+cd backend 
+cp .env.example .env
+npm i
+npm run db:seed
+npm run dev
 
 # Run frontend (in another terminal)
-cd frontend && npm run dev
+cd frontend
+cp .env.example .env
+npm i
+npm run dev
 ```
 
 ## API Sketch
