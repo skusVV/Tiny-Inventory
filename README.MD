@@ -49,6 +49,8 @@ cd frontend && npm run dev
 ## Testing Approach
 
 - Jest configured for unit and integration tests
+- Cypress - for e2e flows [Not Implemented]
+- Screenshot testing - to be sure ui not broken and consisten [Not Implemented]
 
 
 
