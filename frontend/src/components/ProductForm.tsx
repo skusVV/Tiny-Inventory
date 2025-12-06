@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { useCategories } from "../hooks/useCategories";
 import { useStoreOptions } from "../hooks/useStoreOptions";
+import { Loader } from "./Loader";
+import { ErrorMessage } from "./ErrorMessage";
 
 export interface ProductFormData {
   name: string;
@@ -125,7 +127,7 @@ export const ProductForm = ({
   const isDataLoading = categoriesLoading || storesLoading;
 
   if (isDataLoading) {
-    return <div className="text-slate-400">Loading...</div>;
+    return <Loader className="py-20" />;
   }
 
   return (
@@ -273,7 +275,7 @@ export const ProductForm = ({
         )}
       </div>
 
-      {error && <div className="text-red-500 text-sm">{error}</div>}
+      {error && <ErrorMessage message={error} centered={false} />}
 
       <button
         type="submit"

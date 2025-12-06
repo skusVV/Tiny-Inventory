@@ -70,6 +70,7 @@ export class StoreController {
     return this.storeService.delete(id);
   }
 
+  // TODO: Add pagination and sorting
   @Get(':id/products')
   async findProducts(@Param('id', ParseUUIDPipe) id: string): Promise<Product[]> {
     return this.productService.findByStoreId(id);

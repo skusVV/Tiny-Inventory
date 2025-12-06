@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../hooks/useStore";
 import { StoresApi } from "../api/stores";
-import { StoreForm } from "../components";
+import { StoreForm, Loader, ErrorMessage } from "../components";
 import type { StoreFormData } from "../components";
 import { buildStoreRoute } from "../shared";
 
@@ -30,11 +30,11 @@ export const EditStore = () => {
   };
 
   if (loading) {
-    return <div className="text-slate-400">Loading...</div>;
+    return <Loader className="py-20" />;
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <ErrorMessage message={error} />;
   }
 
   if (!store) {

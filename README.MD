@@ -1,24 +1,59 @@
-# Tini inventory
+# Tiny Inventory
 
-## Vision
-1. There are many stores.
-2. Each store has multiple products
-3. I don't expect the same product belong to multiple stores.
-4. Each product has many category
+A simple inventory management system for tracking stores, products, and categories.
+
+## Run Instructions
+
+```bash
+# Start everything (PostgreSQL, Backend, Frontend)
+docker-compose up --build
+
+# Access the app
+# Frontend: http://localhost:8080
+# Backend API: http://localhost:3000
+```
+
+For local development:
+```bash
+# Start only the database
+cd backend && npm run up:db
+
+# Run backend (in another terminal)
+cd backend && npm run dev
+
+# Run frontend (in another terminal)
+cd frontend && npm run dev
+```
+
+## API Sketch
+
+| Method | Endpoint              | Description              |
+|--------|-----------------------|--------------------------|
+| GET    | /stores               | List stores (paginated)  |
+| POST   | /stores               | Create store             |
+| GET    | /stores/:id           | Get store by ID          |
+| GET    | /stores/:id/products  | Get products for store   |
+| GET    | /products             | List products (paginated)|
+| POST   | /products             | Create product           |
+| GET    | /categories           | List all categories      |
+
+## Decisions & Trade-offs
+
+**NestJS** — Well-structured, OOP-oriented framework with built-in DI, validation, and great TypeScript support. Trade-off: heavier than Express for a small app.
+
+**PostgreSQL** — Chosen for future extensibility (locations, labels, expiration dates, sales). Current state could work with NoSQL, but relational model scales better with growing complexity.
+
+**TypeORM** — Integrates seamlessly with NestJS. Trade-off: some query limitations vs raw SQL.
 
 
-## Decisions
-### Nest
-it's well structured, OOP oriented and has a lot of built in features.
+## Testing Approach
 
-### Postgres 
-At the moment, there is no complex relations. But eveloving of Tiny store most likely will create more relations.
-For example:
-- Store may have multiple locations, and I need to keep which product in which location.
-- Product may have more attributes: like labels "Soy Free", "Sugar free" etc.
-- Product may have expiration time - especially food, it may be crucial for some inventories.
-- Sales
+- Jest configured for unit and integration tests
 
-As soon as more features will come up, this realtions may grow drastically.
 
-PS. But, for the application in current state - NoSql is also good choice.
+
+## If I Had More Time
+
+- **Add product search & filtering** — search by name, filter by category, price range, stock quantity
+- **Add authentication & authorization** — protect endpoints, support multiple users per store
+- **Implement comprehensive test suite** — unit tests for services, E2E tests for API, frontend component tests

@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { ErrorMessage } from "./ErrorMessage";
 
 export interface StoreFormData {
   name: string;
@@ -137,9 +138,7 @@ export const StoreForm = ({
         />
       </div>
 
-      {error && (
-        <div className="text-red-500 text-sm">{error}</div>
-      )}
+      {error && <ErrorMessage message={error} centered={false} />}
 
       <button
         type="submit"

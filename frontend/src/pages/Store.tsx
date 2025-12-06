@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../hooks/useStore";
 import { useProducts } from "../hooks/useProducts";
 import { StoresApi } from "../api/stores";
-import { ProductList, ConfirmDialog } from "../components";
+import { ProductList, ConfirmDialog, Loader, ErrorMessage } from "../components";
 import { ROUTES, buildCreateProductRoute, buildEditStoreRoute } from "../shared";
 
 export const Store = () => {
@@ -29,11 +29,11 @@ export const Store = () => {
   };
 
   if (loading) {
-    return <div className="text-slate-400">Loading...</div>;
+    return <Loader className="py-20" />;
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <ErrorMessage message={error} />;
   }
 
   if (!store) {
@@ -136,7 +136,7 @@ export const Store = () => {
         </div>
 
         {productsLoading ? (
-          <p className="text-slate-400">Loading products...</p>
+          <Loader size="sm" className="py-8" />
         ) : (
           <ProductList products={products} />
         )}

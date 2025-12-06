@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useProduct } from "../hooks/useProduct";
 import { ProductsApi } from "../api/products";
-import { ProductForm } from "../components";
+import { ProductForm, Loader, ErrorMessage } from "../components";
 import type { ProductFormData } from "../components";
 import { buildProductRoute } from "../shared";
 
@@ -42,11 +42,11 @@ export const EditProduct = () => {
   };
 
   if (loading) {
-    return <div className="text-slate-400">Loading...</div>;
+    return <Loader className="py-20" />;
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <ErrorMessage message={error} />;
   }
 
   if (!product) {

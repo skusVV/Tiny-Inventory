@@ -10,7 +10,7 @@ async function request<T>(input: string, init?: RequestInit): Promise<T> {
   });
 
   if (!res.ok) {
-    let message = `Request failed with status ${res.status}`;
+    let message = `Something went wrong.`;
     try {
       const body = await res.json();
       if (body?.error) message = body.error;

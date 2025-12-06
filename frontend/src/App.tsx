@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useStores } from "./hooks/useStores";
-import { StoreCardsList } from "./components";
+import { StoreCardsList, Loader, ErrorMessage } from "./components";
 import { ROUTES } from "./shared";
 import type { StoreSortBy, SortOrder } from "./api/stores";
 
@@ -20,7 +20,7 @@ const App = () => {
   const { stores, totalCount, loading, loadingMore, error, hasMore, loadMore } = useStores({ sortBy, sortOrder });
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <ErrorMessage message={error} />;
   }
 
   return (
@@ -59,7 +59,7 @@ const App = () => {
       </div>
 
       {loading ? (
-        <div className="text-slate-400">Loading...</div>
+        <Loader className="py-20" />
       ) : (
         <>
           <StoreCardsList stores={stores} />

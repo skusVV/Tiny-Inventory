@@ -9,7 +9,6 @@
 
 UI-
 
-- Update/ store product
 - missed image case
 
 

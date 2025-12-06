@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAllProducts } from "../hooks/useAllProducts";
-import { ProductList } from "../components";
+import { ProductList, Loader, ErrorMessage } from "../components";
 import { ROUTES } from "../shared";
 import type { ProductSortBy, SortOrder } from "../api/products";
 
@@ -22,7 +22,7 @@ export const AllProducts = () => {
   const { products, totalCount, loading, loadingMore, error, hasMore, loadMore } = useAllProducts({ sortBy, sortOrder });
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <ErrorMessage message={error} />;
   }
 
   return (
@@ -61,7 +61,7 @@ export const AllProducts = () => {
       </div>
 
       {loading ? (
-        <div className="text-slate-400">Loading...</div>
+        <Loader className="py-20" />
       ) : (
         <>
           <ProductList products={products} />
