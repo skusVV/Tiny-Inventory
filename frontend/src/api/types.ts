@@ -1,9 +1,16 @@
+export interface CategorySummary {
+    id: string;
+    name: string;
+    productCount: number;
+}
+
 export interface Store {
     id: string;
     name: string;
     description: string | null;
     logoUrl: string | null;
     location: string | null;
+    topCategories: CategorySummary[];
 }
 
 export interface StoreOption {

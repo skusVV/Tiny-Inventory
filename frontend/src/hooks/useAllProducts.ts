@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { ProductsApi, type ProductSortBy, type SortOrder } from "../api/products";
 import type { Product } from "../api/types";
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 6;
 
 interface UseAllProductsOptions {
   sortBy?: ProductSortBy;

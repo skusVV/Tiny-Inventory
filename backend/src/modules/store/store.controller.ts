@@ -29,14 +29,14 @@ export class StoreController {
 
   @Get()
   async findAll(@Query() query: FindStoresQueryDto): Promise<PaginatedStoresResponseDto> {
-    const [stores, totalCount] = await this.storeService.findAll({
+    const [stores, totalCount, topCategoriesMap] = await this.storeService.findAll({
       sortBy: query.sortBy,
       sortOrder: query.sortOrder,
       skip: query.skip,
       take: query.take,
     });
 
-    return StoreBuilder.toPaginatedResponse(stores, totalCount);
+    return StoreBuilder.toPaginatedResponse(stores, totalCount, topCategoriesMap);
   }
 
   @Get('options')
@@ -46,9 +46,9 @@ export class StoreController {
 
   @Get(':id')
   async findById(@Param('id', ParseUUIDPipe) id: string): Promise<StoreResponseDto> {
-    const store = await this.storeService.findById(id);
+    const [store, topCategories] = await this.storeService.findById(id);
 
-    return StoreBuilder.toResponse(store);
+    return StoreBuilder.toResponse(store, topCategories);
   }
 
   @Post()

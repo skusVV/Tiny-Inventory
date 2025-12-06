@@ -70,5 +70,9 @@ export class ProductRepository {
   async delete(id: string): Promise<void> {
     await this.repository.softDelete(id);
   }
+
+  async deleteByStoreId(storeId: string): Promise<void> {
+    await this.repository.softDelete({ storeId });
+  }
 }
 

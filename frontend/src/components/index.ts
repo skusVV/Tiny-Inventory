@@ -5,3 +5,8 @@ export { StoreCard } from "./StoreCard";
 export { StoreCardsList } from "./StoreCardsList";
 export { ProductCard } from "./ProductCard";
 export { ProductList } from "./ProductList";
+export { ConfirmDialog } from "./ConfirmDialog";
+export { StoreForm } from "./StoreForm";
+export type { StoreFormData } from "./StoreForm";
+export { ProductForm } from "./ProductForm";
+export type { ProductFormData } from "./ProductForm";

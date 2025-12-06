@@ -47,5 +47,9 @@ export class ProductService {
     await this.findById(id);
     await this.productRepository.delete(id);
   }
+
+  async deleteByStoreId(storeId: string): Promise<void> {
+    await this.productRepository.deleteByStoreId(storeId);
+  }
 }
 

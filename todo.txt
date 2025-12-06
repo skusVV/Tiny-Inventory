@@ -1,12 +1,7 @@
 
-- products filter
-- SOme aggregations or compounded data.
-- store/products pagination
-- sorting for products
 - unit tests
 - Migration to seed data?
 
-- to which store this product belong at least overview.
 
 
 // Polishing
@@ -14,22 +9,10 @@
 
 UI-
 
-- create/delete/update store
-- ad product to store, update delete product
-- Handle no image case
+- Update/ store product
+- missed image case
 
 
-####README####
 
-
-// Ideas to improve
-- Product labels - like "recycled", 'sugar free'
-- More fields for Store?
-
-
-4. Technically categories could be applied both to store and products and 
-it reduce complex query.
-But as you asked to have non-trivial query, I will have only product-category
- relations.
 
 

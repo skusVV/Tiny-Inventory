@@ -37,6 +37,19 @@ export const StoreCard = ({ store }: StoreCardProps) => {
               {store.description}
             </p>
           )}
+
+          {store.topCategories && store.topCategories.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {store.topCategories.map((cat) => (
+                <span
+                  key={cat.id}
+                  className="px-2 py-0.5 bg-teal-50 text-teal-700 text-xs rounded-full"
+                >
+                  {cat.name}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </Link>
